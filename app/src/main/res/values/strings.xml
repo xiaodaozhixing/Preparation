@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Preparation</string>
+    
+    <string name="title">适应性学习</string>
+    
+    <string name="empty_view">空视图</string>
+    <string name="camera">相机</string>
+    <string name="recycler_view">RecyclerView</string>
+</resources>
