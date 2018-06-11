@@ -6,4 +6,5 @@
     <string name="empty_view">空视图</string>
     <string name="camera">相机</string>
     <string name="recycler_view">RecyclerView</string>
+    <string name="recycler_view_item">RecyclerView的项</string>
 </resources>

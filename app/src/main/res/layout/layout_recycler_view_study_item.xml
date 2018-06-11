@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+	<ImageView
+			android:id="@+id/image_view_picture"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:src="@drawable/ic_launcher_background"
+			android:scaleType="fitCenter"
+			android:background="@color/colorAccent"
+			android:contentDescription="@string/recycler_view_item"
+	/>
+	<TextView
+			android:id="@+id/text_view_picture_name"
+			android:layout_width="match_parent"
+            android:layout_height="match_parent"
+			android:textAlignment="center"
+			android:text="@string/empty_view"
+	/>
+</LinearLayout>
