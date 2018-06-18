@@ -32,8 +32,8 @@ public class RecyclerViewStudy extends AppCompatActivity {
         initLayoutManagers();
         setContentView(R.layout.layout_recycler_view_study);
         initViews();
-        requestPermissions();
 
+        requestPermissions();
     }
     private void initLayoutManagers(){
         Log.v("Into function", "initLayoutManagers");
@@ -45,6 +45,10 @@ public class RecyclerViewStudy extends AppCompatActivity {
     private void initViews(){
         Log.v("Into function", "initViews");
         textViewEmpty = findViewById(R.id.text_view_empty);
+
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(verticalLinearManager);
     }
 
     private void requestPermissions(){
@@ -72,9 +76,7 @@ public class RecyclerViewStudy extends AppCompatActivity {
                 /**应该在onCreate里面设置recycleView，
                  * 不过如果不取得权限，就无法在Adapter中获取设备图片
                  * **/
-                recyclerView = findViewById(R.id.recycler_view);
                 recyclerView.setAdapter(new RecyclerViewItemAdapter(this));
-                recyclerView.setLayoutManager(verticalLinearManager);
             }
         }
     }

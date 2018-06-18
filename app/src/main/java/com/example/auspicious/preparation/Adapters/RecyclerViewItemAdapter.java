@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.auspicious.preparation.R;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -25,21 +27,32 @@ public class RecyclerViewItemAdapter extends RecyclerView.Adapter<RecyclerViewIt
         void onItemClick(ItemHolder itemHolder, int position);
     }
     private ArrayList<String> pictureNames;
+    private ArrayList<String> picturePaths;
     private OnItemClickListener onItemClickListener;
     private LayoutInflater layoutInflater;
 
     public RecyclerViewItemAdapter(Context context){
         Log.v("Into function", "RecyclerViewItemAdapter");
         pictureNames = new ArrayList<>();
+        picturePaths = new ArrayList<>();
 
-        Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                null, null, null, null);
-        if(cursor != null){
+        this.layoutInflater = LayoutInflater.from(context);
+
+        Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null, null);
+        if(cursor==null || cursor.getCount() <= 0){
+            Log.i("Cursor", "No Picture Found");
+        }
+        else {
             while (cursor.moveToNext()){
-                pictureNames.add(cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA)));
+                int index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                String path = cursor.getString(index);
+                File file = new File(path);
+                if(file.exists()){
+                    pictureNames.add(path);
+                    picturePaths.add(path);
+                }
             }
         }
-        this.layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -52,6 +65,8 @@ public class RecyclerViewItemAdapter extends RecyclerView.Adapter<RecyclerViewIt
     public void onBindViewHolder(ItemHolder itemHolder, int i) {
         Log.v("Into function", "onBindViewHolder");
         Log.v("pictureName" ,itemHolder.getPictureName().toString());
+        itemHolder.textViewName.setText(this.pictureNames.get(i));
+        itemHolder.imageViewPicture.setImageURI(Uri.fromFile(new File(this.picturePaths.get(i))));
     }
 
     @Override
